@@ -1,6 +1,6 @@
 /**
  * Author: Max Van Houcke
- * Main script for Gust Design
+ * Main script for Antwerp Studio
  */
 
 
@@ -8,47 +8,17 @@
  * Main function
  */
 document.addEventListener("DOMContentLoaded", function(event) {
-    initializeFade();
-    const tippySettings = {
-        theme: 'light-border',
-        trigger: 'click',
-        placement: 'top'
-    };
-
-    tippySettings.content = `<p class="text-center">
-            <strong>Max Van Houcke</strong>
-            <br>Software ontwikkelaar en zoon van Vicky
-        </p>`;
-
-    tippy('#max', tippySettings);
-
-    tippySettings.content = `<p class="text-center">
-            <strong>Randy</strong>
-            <br>Upholstery Assistant
-        </p>`;
-    tippy('#randy', tippySettings);
-
-    tippySettings.content = `<p class="text-center">
-            <strong>Vicky Vinck</strong>
-            <br>Interieurstyliste
-        </p>`;
-    tippy('#vicky', tippySettings);
-
-    tippySettings.content = `<p class="text-center">
-            <strong>Bram Verheyen</strong>
-            <br>Product ontwikkelaar en zoon van Bea
-        </p>`;
-    tippy('#bram', tippySettings);
-
-    tippySettings.content = `<p class="text-center">
-            <strong>Bea Joppen</strong>
-            <br>Upholstery Specialiste
-        </p>`;
-    tippySettings.hideOnClick = 'toggle';
-    const tippyBea = tippy('#bea', tippySettings)[0];
-    tippyBea.show();
+    showFadeOnLoad();
 });
 
+
+function showFadeOnLoad() {
+    Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
+        document.querySelector('.fade').style.display = 'block';
+        document.getElementById('loading').style.display = 'none';
+        initializeFade();
+    });
+}
 
 /**
  * Start the fading of the pictures
