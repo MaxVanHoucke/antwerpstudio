@@ -8,6 +8,8 @@
  * Main function
  */
 document.addEventListener("DOMContentLoaded", function(event) {
+            document.querySelector('.fade').style.display = 'block';
+        document.getElementById('loading').style.display = 'none';
     showFadeOnLoad();
 });
 
@@ -19,6 +21,13 @@ function showFadeOnLoad() {
         initializeFade();
     });
 }
+
+
+function firstLoaded() {
+    document.querySelector('.fade').style.display = 'block';
+    document.getElementById('loading').style.display = 'none';
+}
+
 
 /**
  * Start the fading of the pictures
