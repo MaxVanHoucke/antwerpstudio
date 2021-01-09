@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function showFadeOnLoad() {
     Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
-        document.querySelector('.fade').style.display = 'block';
-        document.getElementById('loading').style.display = 'none';
         initializeFade();
         postLoadImages();
     });
