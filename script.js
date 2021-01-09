@@ -8,8 +8,6 @@
  * Main function
  */
 document.addEventListener("DOMContentLoaded", function(event) {
-            document.querySelector('.fade').style.display = 'block';
-        document.getElementById('loading').style.display = 'none';
     showFadeOnLoad();
 });
 
@@ -19,15 +17,39 @@ function showFadeOnLoad() {
         document.querySelector('.fade').style.display = 'block';
         document.getElementById('loading').style.display = 'none';
         initializeFade();
+        postLoadImages();
     });
 }
 
 
-function firstLoaded() {
-    document.querySelector('.fade').style.display = 'block';
-    document.getElementById('loading').style.display = 'none';
-}
+function postLoadImages() {
+    const desktop = window.matchMedia("(min-width: 1000px)").matches;
 
+    let toBeLoaded = desktop ? DESKTOP_IMGS : MOBILE_IMGS;
+    for (let img of toBeLoaded) {
+        loadImg(img, addToPage)
+    }
+
+    function loadImg(src, callback) {
+        let img = document.createElement('img');
+        img.src = src;
+        if (img.complete) {
+            callback(img)
+        } else {
+            img.addEventListener('load', () => callback(img))
+        }
+    }
+
+    function addToPage(img) {
+        let images;
+        if (desktop) {
+            images = document.querySelector('.fade .desktop');
+        } else {
+            images = document.querySelector('.fade .mobile');
+        }
+        images.prepend(img);
+    }
+}
 
 /**
  * Start the fading of the pictures
